@@ -8,4 +8,4 @@ import subprocess
     the publisher and the subscriber and controlling the topics
 """
 
-subprocess.Popen(["mosquitto"])
+subprocess.run(["mosquitto"])

@@ -11,6 +11,12 @@ comunicacion indirecta atraves del protocolo MQTT
 - mosquitto
 - paho-mqtt
 
+## Uso
+Para poder usar este proyecto primero se necesita seguir estos pasos
+- Correr el broker
+- Correr el subscriptor
+- Correr el publicador con el mensaje que queremos mandar
+
 ### Autor 
 Equipo LEGO UAG
 
