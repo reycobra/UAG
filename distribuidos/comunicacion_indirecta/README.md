@@ -9,6 +9,7 @@ comunicacion indirecta atraves del protocolo MQTT
 - Python 3
 - Instalar los paquetes de python del archivo requirements.txt
 - mosquitto
+- paho-mqtt
 
 ### Autor 
 Equipo LEGO UAG
