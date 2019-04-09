@@ -16,7 +16,10 @@ from ev3dev2.motor import LargeMotor, OUTPUT_A, OUTPUT_B, SpeedPercent, MoveTank
 from ev3dev2.sensor import INPUT_1
 from ev3dev2.sensor.lego import TouchSensor
 from ev3dev2.led import Leds
+import socket
 
+HOST = "127.0.0.1"                                                              # LEGO IP address
+PORT = 65432                                                                    # Port to listen on (non-privileged ports are > 1023)
 
 # Classes
 class lego_tank():
@@ -66,4 +69,23 @@ class lego_tank():
 
 # Demo code
 if "__main__"==__name__:
-    pass
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+        lego = lego_tank()
+        s.bind((HOST, PORT))
+        s.listen()
+        conn, addr = s.accept()
+        with conn:
+            print("Connected by", addr)
+            while True:
+                data = conn.recv(1024)
+                if not data:
+                    break
+                elif data == "left":
+                    lego.left()
+                elif data == "right":
+                    lego.right()
+                elif data == "forward":
+                    lego.forward()
+                elif data == "backward":
+                    lego.backward()
+                conn.sendall(b"done")
