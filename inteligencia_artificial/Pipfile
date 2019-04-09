@@ -7,6 +7,8 @@ verify_ssl = true
 
 [packages]
 tensorflow = "*"
+python-ev3dev2 = "*"
+evdev = "*"
 
 [requires]
 python_version = "3.6"
