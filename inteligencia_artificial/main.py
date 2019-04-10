@@ -163,6 +163,7 @@ if __name__ == '__main__':
             desplazamiento(point1, point2)
             break
 
+    movements.append(b'finish')
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         s.connect((SERVER, PORT))
         for movement in movements:

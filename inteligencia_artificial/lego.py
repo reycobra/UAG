@@ -83,9 +83,7 @@ def server():
             print("Connected by", addr)
             while True:
                 data = conn.recv(1024)
-                if not data:
-                    break
-                elif data == b'left':
+                if data == b'left':
                     lego.left()
                 elif data == b'right':
                     lego.right()
@@ -93,6 +91,9 @@ def server():
                     lego.forward()
                 elif data == b'backward':
                     lego.backward()
+                elif data == b'finish':
+                    break
+
                 conn.sendall(b"done")
             try:
                 lego.sound.speak("I finished with my orders commander in chief")
