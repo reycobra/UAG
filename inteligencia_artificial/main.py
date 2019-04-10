@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 
 from collections import defaultdict, deque
-from tensorflow.python.ops.gen_dataset_ops import iterator
 from lego import lego_tank
 
 # Initializing lego tank
@@ -109,8 +108,12 @@ def desplazamiento(punto1, punto2): #Agregar codigo de lego aqui
         lego.backward()
     if(punto1[0]<punto2[0] and punto1[1]==punto2[1]):
         lego.right()
+        lego.forward()
+        lego.left()
     if(punto1[0]>punto2[0] and punto1[1]==punto2[1]):
         lego.left()
+        lego.forward()
+        lego.right()
 
 if __name__ == '__main__':
 
@@ -120,44 +123,31 @@ if __name__ == '__main__':
         graph.add_node(node)
 
     # laberinto
-    graph.add_edge('A', 'B', 1)
+    
     graph.add_edge('A', 'E', 1)
-    graph.add_edge('B', 'A', 1)
-    graph.add_edge('B', 'C', 1)
-    graph.add_edge('C', 'B', 1)
-    graph.add_edge('D', 'H', 1)
-    graph.add_edge('E', 'A', 1)
-    graph.add_edge('E', 'F', 1)
-    graph.add_edge('F', 'E', 1)
-    graph.add_edge('F', 'J', 1)
-    graph.add_edge('F', 'G', 1)
-    graph.add_edge('G', 'F', 1)
-    graph.add_edge('G', 'K', 1)
-    graph.add_edge('G', 'H', 1)
-    graph.add_edge('H', 'G', 1)
-    graph.add_edge('H', 'L', 1)
+    graph.add_edge('E', 'I', 1)
     graph.add_edge('I', 'M', 1)
-    graph.add_edge('I', 'J', 1)
-    graph.add_edge('J', 'I', 1)
-    graph.add_edge('J', 'F', 1)
-    graph.add_edge('J', 'K', 1)
-    graph.add_edge('K', 'J', 1)
-    graph.add_edge('K', 'G', 1)
+    graph.add_edge('M', 'N', 1)
+
+    graph.add_edge('E', 'F', 1)
+    graph.add_edge('F', 'B', 1)
+    graph.add_edge('B', 'C', 1)
+    graph.add_edge('C', 'D', 1)
+
+    graph.add_edge('C', 'G', 1)
+    graph.add_edge('G', 'K', 1)
     graph.add_edge('K', 'O', 1)
-    graph.add_edge('L', 'H', 1)
-    graph.add_edge('L', 'P', 1)
-    graph.add_edge('M', 'I', 1)
-    graph.add_edge('N', 'O', 1)
-    graph.add_edge('O', 'N', 1)
-    graph.add_edge('O', 'K', 1)
     graph.add_edge('O', 'P', 1)
-    graph.add_edge('P', 'O', 1)
     graph.add_edge('P', 'L', 1)
+    graph.add_edge('L', 'H', 1)
+
+    graph.add_edge('K', 'J', 1)
+
     # ...
 
 
 
-    solucion=shortest_path(graph, 'A', 'P');
+    solucion=shortest_path(graph, 'D', 'M');
     auxList=solucion.copy()
     auxList.pop(0)
     print(solucion) # output: (25, ['A', 'B', 'D'])
