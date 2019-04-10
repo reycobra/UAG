@@ -12,10 +12,11 @@
 #
 
 # Packages
-from ev3dev2.motor import LargeMotor, OUTPUT_A, OUTPUT_B, SpeedPercent, MoveTank
+from ev3dev2.motor import LargeMotor, OUTPUT_A, OUTPUT_D, SpeedPercent, MoveTank
 from ev3dev2.sensor import INPUT_1
 from ev3dev2.sensor.lego import TouchSensor
 from ev3dev2.led import Leds
+from ev3dev2.sound import Sound
 import socket
 
 HOST = "127.0.0.1"                                                              # LEGO IP address
@@ -25,43 +26,48 @@ PORT = 65432                                                                    
 class lego_tank():
 
     def __init__(self):
-        try:
-            self.tank_drive = MoveTank(OUTPUT_A, OUTPUT_B)
-        except:
-            self.tank_drive = False
 
-        self.rotations = 5
+        #try:
+        #    self.tank_drive = MoveTank(OUTPUT_D, OUTPUT_A)
+        #    self.print("Create the tank_drive")
+        #except:
+        #    self.tank_drive = False
+
+        #self.degrees = 5
+        sound = Sound()
+        self.tank_drive = MoveTank(OUTPUT_D, OUTPUT_A)
+        print("Create the tank_drive")
+
+        self.degrees = 1230
 
     def right(self):
-        print("I'm moving to right")
         if self.tank_drive:
-            self.tank_drive.on_for_rotations(5 , 1, self.rotations)
-            self.tank_drive.on_for_rotations(5 , 5, self.rotations)
+            print("I am moving to right")
+            self.tank_drive.on_for_degrees(50 , -50, 470)
         else:
             # We do not have outputs if we run this from our own computer
             pass
 
     def left(self):
-        print("I'm moving to left")
         if self.tank_drive:
-            self.tank_drive.on_for_rotations(1 , 5, self.rotations)
-            self.tank_drive.on_for_rotations(5 , 5, self.rotations)
+            print("I am moving to left")
+            self.tank_drive.on_for_degrees(-50 , 50, 470)
         else:
             # We do not have outputs if we run this from our own computer
             pass
 
     def forward(self):
-        print("I'm moving forward")
         if self.tank_drive:
-            self.tank_drive.on_for_rotations(5 , 5, self.rotations)
+            print("I am moving forward")
+            self.tank_drive.on_for_degrees(50 , 50, self.degrees)
         else:
             # We do not have outputs if we run this from our own computer
             pass
 
     def backward(self):
-        print("I'm moving backwards")
         if self.tank_drive:
-            self.tank_drive.on_for_rotations(5 , 5, (-1) * self.rotations)
+            print("I am moving backwards")
+            self.tank_drive.on_for_degrees(50 , 50, (-1) * self.degrees)
         else:
             # We do not have outputs if we run this from our own computer
             pass
@@ -69,23 +75,8 @@ class lego_tank():
 
 # Demo code
 if "__main__"==__name__:
-    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-        lego = lego_tank()
-        s.bind((HOST, PORT))
-        s.listen()
-        conn, addr = s.accept()
-        with conn:
-            print("Connected by", addr)
-            while True:
-                data = conn.recv(1024)
-                if not data:
-                    break
-                elif data == "left":
-                    lego.left()
-                elif data == "right":
-                    lego.right()
-                elif data == "forward":
-                    lego.forward()
-                elif data == "backward":
-                    lego.backward()
-                conn.sendall(b"done")
+    lego = lego_tank()
+    lego.right()
+    lego.right()
+    lego.right()
+    lego.right()
