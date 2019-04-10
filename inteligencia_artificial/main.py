@@ -2,6 +2,7 @@
 
 from collections import defaultdict, deque
 from lego import lego_tank
+import socket
 
 # Initializing lego tank
 lego = lego_tank()
@@ -123,7 +124,7 @@ if __name__ == '__main__':
         graph.add_node(node)
 
     # laberinto
-    
+
     graph.add_edge('A', 'E', 1)
     graph.add_edge('E', 'I', 1)
     graph.add_edge('I', 'M', 1)
@@ -161,3 +162,11 @@ if __name__ == '__main__':
             auxList.pop(index2)
             desplazamiento(point1, point2)
             break
+
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+        s.connect((HOST, PORT))
+        for movement in movements:
+            print(movement)
+            s.sendall(movement)
+            data = s.recv(1024)
+            print(data)

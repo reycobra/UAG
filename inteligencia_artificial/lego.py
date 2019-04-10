@@ -17,14 +17,15 @@ from ev3dev2.sensor import INPUT_1
 from ev3dev2.sensor.lego import TouchSensor
 from ev3dev2.led import Leds
 from ev3dev2.sound import Sound
-import time 
+import socket
+import time
 
 
 # Classes
 class lego_tank():
 
     def __init__(self):
-        
+
         #try:
         #    self.tank_drive = MoveTank(OUTPUT_D, OUTPUT_A)
         #    self.print("Create the tank_drive")
@@ -70,11 +71,31 @@ class lego_tank():
             # We do not have outputs if we run this from our own computer
             pass
 
+def server():
+    """Server that waits for instructions
 
-# Demo code
+    """
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+        lego = lego_tank()
+        s.bind((HOST, PORT))
+        s.listen()
+        conn, addr = s.accept()
+        with conn:
+            print("Connected by", addr)
+            while True:
+                data = conn.recv(1024)
+                if not data:
+                    break
+                elif data == b'left':
+                    lego.left()
+                elif data == b'right':
+                    lego.right()
+                elif data == b'forward':
+                    lego.forward()
+                elif data == b'backward':
+                    lego.backward()
+                conn.sendall(b"done")
+
+
 if "__main__"==__name__:
-    lego = lego_tank()
-    lego.right()
-    lego.right()
-    lego.right()
-    lego.right()
+    server()
