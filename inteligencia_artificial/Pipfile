@@ -8,6 +8,8 @@ verify_ssl = true
 [packages]
 evdev = "*"
 python-ev3dev2 = "*"
+speechrecognition = "*"
+pyaudio = "*"
 
 [requires]
 python_version = "3.6"

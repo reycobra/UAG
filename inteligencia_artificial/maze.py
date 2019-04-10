@@ -4,6 +4,7 @@ from collections import defaultdict, deque
 import socket
 
 SERVER = "192.168.43.138"
+#SERVER = "127.0.0.1"
 PORT = 65432
 movements = []
 

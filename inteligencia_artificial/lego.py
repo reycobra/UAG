@@ -19,7 +19,8 @@ from ev3dev2.led import Leds
 from ev3dev2.sound import Sound
 import socket
 
-HOST = "192.168.43.138"
+HOST = "127.0.0.1"
+#HOST = "192.168.43.138"
 PORT = 65432
 
 # Classes
