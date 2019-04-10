@@ -18,54 +18,53 @@ from ev3dev2.sensor.lego import TouchSensor
 from ev3dev2.led import Leds
 from ev3dev2.sound import Sound
 import socket
-import time
 
+HOST = "192.168.43.138"
+PORT = 65432
 
 # Classes
 class lego_tank():
 
     def __init__(self):
 
-        #try:
-        #    self.tank_drive = MoveTank(OUTPUT_D, OUTPUT_A)
-        #    self.print("Create the tank_drive")
-        #except:
-        #    self.tank_drive = False
-
-        #self.degrees = 5
-        sound = Sound()
-        self.tank_drive = MoveTank(OUTPUT_D, OUTPUT_A)
-        print("Create the tank_drive")
+        try:
+            self.tank_drive = MoveTank(OUTPUT_D, OUTPUT_A)
+            self.sound = Sound()
+            self.sound.speak("Ready to start")
+            self.sound.speak("Waiting for orders my commander")
+        except:
+            self.tank_drive = False
 
         self.degrees = 1230
+        print("Create the tank_drive")
 
     def right(self):
+        print("Turning right")
         if self.tank_drive:
-            print("I am moving to right")
             self.tank_drive.on_for_degrees(50 , -50, 470)
         else:
             # We do not have outputs if we run this from our own computer
             pass
 
     def left(self):
+        print("Turning left")
         if self.tank_drive:
-            print("I am moving to left")
             self.tank_drive.on_for_degrees(-50 , 50, 470)
         else:
             # We do not have outputs if we run this from our own computer
             pass
 
     def forward(self):
+        print("I am moving forward")
         if self.tank_drive:
-            print("I am moving forward")
             self.tank_drive.on_for_degrees(50 , 50, self.degrees)
         else:
             # We do not have outputs if we run this from our own computer
             pass
 
     def backward(self):
+        print("I am moving backwards")
         if self.tank_drive:
-            print("I am moving backwards")
             self.tank_drive.on_for_degrees(50 , 50, (-1) * self.degrees)
         else:
             # We do not have outputs if we run this from our own computer
@@ -95,7 +94,10 @@ def server():
                 elif data == b'backward':
                     lego.backward()
                 conn.sendall(b"done")
-
+            try:
+                lego.sound.speak("I finished with my orders commander in chief")
+            except:
+                print("I finished with my orders commander in chief")
 
 if "__main__"==__name__:
     server()

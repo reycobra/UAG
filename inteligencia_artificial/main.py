@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 
 from collections import defaultdict, deque
-from lego import lego_tank
 import socket
 
-# Initializing lego tank
-lego = lego_tank()
+SERVER = "192.168.43.138"
+PORT = 65432
+movements = []
 
 class Graph(object):
     def __init__(self):
@@ -104,17 +104,17 @@ def selecPoint(elemento):
 
 def desplazamiento(punto1, punto2): #Agregar codigo de lego aqui
     if(punto1[0]==punto2[0] and punto1[1]<punto2[1]):
-        lego.forward()
+        movements.append(b'forward')
     if(punto1[0]==punto2[0] and punto1[1]>punto2[1]):
-        lego.backward()
+        movements.append(b'backward')
     if(punto1[0]<punto2[0] and punto1[1]==punto2[1]):
-        lego.right()
-        lego.forward()
-        lego.left()
+        movements.append(b'right')
+        movements.append(b'forward')
+        movements.append(b'left')
     if(punto1[0]>punto2[0] and punto1[1]==punto2[1]):
-        lego.left()
-        lego.forward()
-        lego.right()
+        movements.append(b'left')
+        movements.append(b'forward')
+        movements.append(b'right')
 
 if __name__ == '__main__':
 
@@ -164,9 +164,8 @@ if __name__ == '__main__':
             break
 
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-        s.connect((HOST, PORT))
+        s.connect((SERVER, PORT))
         for movement in movements:
             print(movement)
             s.sendall(movement)
             data = s.recv(1024)
-            print(data)
