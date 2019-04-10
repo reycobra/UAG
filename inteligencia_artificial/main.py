@@ -177,5 +177,7 @@ if __name__ == '__main__':
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         s.connect((HOST, PORT))
         for movement in movements:
+            print(movement)
             s.sendall(movement)
             data = s.recv(1024)
+            print(data)

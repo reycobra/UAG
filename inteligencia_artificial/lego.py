@@ -66,9 +66,10 @@ class lego_tank():
             # We do not have outputs if we run this from our own computer
             pass
 
+def server():
+    """Server that waits for instructions
 
-# Demo code
-if "__main__"==__name__:
+    """
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         lego = lego_tank()
         s.bind((HOST, PORT))
@@ -80,12 +81,17 @@ if "__main__"==__name__:
                 data = conn.recv(1024)
                 if not data:
                     break
-                elif data == "left":
+                elif data == b'left':
                     lego.left()
-                elif data == "right":
+                elif data == b'right':
                     lego.right()
-                elif data == "forward":
+                elif data == b'forward':
                     lego.forward()
-                elif data == "backward":
+                elif data == b'backward':
                     lego.backward()
                 conn.sendall(b"done")
+
+# Demo code
+if "__main__"==__name__:
+    server()
+
