@@ -2,11 +2,9 @@
 
 from collections import defaultdict, deque
 from lego import lego_tank
-import socket
 
-HOST = "127.0.0.1"                                                              # Computer IP address
-PORT = 65432                                                                    # Port to listen on (non-privileged ports are > 1023)
-movements = []                                                                  # List with all the require movemens to reach the desire node
+# Initializing lego tank
+lego = lego_tank()
 
 class Graph(object):
     def __init__(self):
@@ -105,9 +103,9 @@ def selecPoint(elemento):
 
 def desplazamiento(punto1, punto2): #Agregar codigo de lego aqui
     if(punto1[0]==punto2[0] and punto1[1]<punto2[1]):
-        movements.append(b"forward")
+        lego.forward()
     if(punto1[0]==punto2[0] and punto1[1]>punto2[1]):
-        movements.append(b"backward")
+        lego.backward()
     if(punto1[0]<punto2[0] and punto1[1]==punto2[1]):
         lego.right()
         lego.forward()
@@ -125,7 +123,7 @@ if __name__ == '__main__':
         graph.add_node(node)
 
     # laberinto
-
+    
     graph.add_edge('A', 'E', 1)
     graph.add_edge('E', 'I', 1)
     graph.add_edge('I', 'M', 1)
@@ -163,10 +161,3 @@ if __name__ == '__main__':
             auxList.pop(index2)
             desplazamiento(point1, point2)
             break
-
-    # Sending the data with the results of the algorithm to the lego brick
-    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-        s.connect((HOST, PORT))
-        for movement in movements:
-            s.sendall(movement)
-            data = s.recv(1024)

@@ -17,16 +17,14 @@ from ev3dev2.sensor import INPUT_1
 from ev3dev2.sensor.lego import TouchSensor
 from ev3dev2.led import Leds
 from ev3dev2.sound import Sound
-import socket
+import time 
 
-HOST = "127.0.0.1"                                                              # LEGO IP address
-PORT = 65432                                                                    # Port to listen on (non-privileged ports are > 1023)
 
 # Classes
 class lego_tank():
 
     def __init__(self):
-
+        
         #try:
         #    self.tank_drive = MoveTank(OUTPUT_D, OUTPUT_A)
         #    self.print("Create the tank_drive")
