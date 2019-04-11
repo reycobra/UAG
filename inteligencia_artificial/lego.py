@@ -17,6 +17,7 @@ from ev3dev2.sensor import INPUT_1
 from ev3dev2.sensor.lego import TouchSensor
 from ev3dev2.led import Leds
 from ev3dev2.sound import Sound
+from maze import Graph, dijkstra, shortest_path, selecPoint, desplazamiento, run, movements
 import socket
 
 HOST = "127.0.0.1"
@@ -75,6 +76,7 @@ def server():
     """Server that waits for instructions
 
     """
+    kill = False
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         lego = lego_tank()
         s.bind((HOST, PORT))
@@ -84,22 +86,46 @@ def server():
             print("Connected by", addr)
             while True:
                 data = conn.recv(1024)
-                if data == b'left':
-                    lego.left()
-                elif data == b'right':
-                    lego.right()
-                elif data == b'forward':
-                    lego.forward()
-                elif data == b'backward':
-                    lego.backward()
-                elif data == b'finish':
+                for s in data.decode('utf-8').split():
+                    if s == 'left':
+                        lego.left()
+                    elif s == 'right':
+                        lego.right()
+                    elif s == 'forward':
+                        lego.forward()
+                    elif s == 'backward':
+                        lego.backward()
+                    elif s == 'run':
+                        commands = run(True)
+                        for command in commands:
+                            comando = command.decode('utf-8')
+                            if comando == 'left':
+                                lego.left()
+                            elif comando == 'right':
+                                lego.right()
+                            elif comando == 'forward':
+                                lego.forward()
+                            elif comando == 'backward':
+                                lego.backward()
+                            elif comando == 'finish':
+                                break
+                        kill = True
+                    elif s == 'finish':
+                        break
+                try:
+                    if kill:
+                        conn.sendall(b"kill")
+                        break
+                    else:
+                        conn.sendall(b"done")
+                except:
+                    print("Connection finished")
                     break
-
-                conn.sendall(b"done")
             try:
                 lego.sound.speak("I finished with my orders commander in chief")
             except:
                 print("I finished with my orders commander in chief")
+
 
 if "__main__"==__name__:
     server()

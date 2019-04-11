@@ -3,9 +3,6 @@
 from collections import defaultdict, deque
 import socket
 
-SERVER = "192.168.43.138"
-#SERVER = "127.0.0.1"
-PORT = 65432
 movements = []
 
 class Graph(object):
@@ -117,57 +114,116 @@ def desplazamiento(punto1, punto2): #Agregar codigo de lego aqui
         movements.append(b'forward')
         movements.append(b'right')
 
+
+def run(pops = False):
+    if pops:
+        graph = Graph()
+
+        for node in ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P']:
+            graph.add_node(node)
+
+        # laberinto
+
+        graph.add_edge('A', 'E', 1)
+        graph.add_edge('E', 'I', 1)
+        graph.add_edge('I', 'M', 1)
+        graph.add_edge('M', 'N', 1)
+
+        graph.add_edge('E', 'F', 1)
+        graph.add_edge('F', 'B', 1)
+        graph.add_edge('B', 'C', 1)
+        graph.add_edge('C', 'D', 1)
+
+        graph.add_edge('C', 'G', 1)
+        graph.add_edge('G', 'K', 1)
+        graph.add_edge('K', 'O', 1)
+        graph.add_edge('O', 'P', 1)
+        graph.add_edge('P', 'L', 1)
+        graph.add_edge('L', 'H', 1)
+
+        graph.add_edge('K', 'J', 1)
+
+        # ...
+
+
+
+        solucion=shortest_path(graph, 'D', 'M');
+        auxList=solucion.copy()
+        auxList.pop(0)
+        print(solucion) # output: (25, ['A', 'B', 'D'])
+
+
+        for index, item in enumerate(solucion):
+            for index2, item2 in enumerate(auxList):
+                point1=selecPoint(item)
+                point2=selecPoint(item2)
+                print(point1, point2)
+                auxList.pop(index2)
+                desplazamiento(point1, point2)
+                break
+
+        movements.append(b'finish')
+        return movements
+    else:
+        #SERVER = "192.168.43.138"
+        SERVER = "127.0.0.1"
+        PORT = 65432
+
+        graph = Graph()
+
+        for node in ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P']:
+            graph.add_node(node)
+
+        # laberinto
+
+        graph.add_edge('A', 'E', 1)
+        graph.add_edge('E', 'I', 1)
+        graph.add_edge('I', 'M', 1)
+        graph.add_edge('M', 'N', 1)
+
+        graph.add_edge('E', 'F', 1)
+        graph.add_edge('F', 'B', 1)
+        graph.add_edge('B', 'C', 1)
+        graph.add_edge('C', 'D', 1)
+
+        graph.add_edge('C', 'G', 1)
+        graph.add_edge('G', 'K', 1)
+        graph.add_edge('K', 'O', 1)
+        graph.add_edge('O', 'P', 1)
+        graph.add_edge('P', 'L', 1)
+        graph.add_edge('L', 'H', 1)
+
+        graph.add_edge('K', 'J', 1)
+
+        # ...
+
+
+
+        solucion=shortest_path(graph, 'D', 'M');
+        auxList=solucion.copy()
+        auxList.pop(0)
+        print(solucion) # output: (25, ['A', 'B', 'D'])
+
+
+        for index, item in enumerate(solucion):
+            for index2, item2 in enumerate(auxList):
+                point1=selecPoint(item)
+                point2=selecPoint(item2)
+                print(point1, point2)
+                auxList.pop(index2)
+                desplazamiento(point1, point2)
+                break
+
+        movements.append(b'finish')
+        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+            s.connect((SERVER, PORT))
+            for movement in movements:
+                print(movement)
+                s.sendall(movement)
+                data = s.recv(1024)
+
+
+
 if __name__ == '__main__':
+    run()
 
-    graph = Graph()
-
-    for node in ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P']:
-        graph.add_node(node)
-
-    # laberinto
-
-    graph.add_edge('A', 'E', 1)
-    graph.add_edge('E', 'I', 1)
-    graph.add_edge('I', 'M', 1)
-    graph.add_edge('M', 'N', 1)
-
-    graph.add_edge('E', 'F', 1)
-    graph.add_edge('F', 'B', 1)
-    graph.add_edge('B', 'C', 1)
-    graph.add_edge('C', 'D', 1)
-
-    graph.add_edge('C', 'G', 1)
-    graph.add_edge('G', 'K', 1)
-    graph.add_edge('K', 'O', 1)
-    graph.add_edge('O', 'P', 1)
-    graph.add_edge('P', 'L', 1)
-    graph.add_edge('L', 'H', 1)
-
-    graph.add_edge('K', 'J', 1)
-
-    # ...
-
-
-
-    solucion=shortest_path(graph, 'D', 'M');
-    auxList=solucion.copy()
-    auxList.pop(0)
-    print(solucion) # output: (25, ['A', 'B', 'D'])
-
-
-    for index, item in enumerate(solucion):
-        for index2, item2 in enumerate(auxList):
-            point1=selecPoint(item)
-            point2=selecPoint(item2)
-            print(point1, point2)
-            auxList.pop(index2)
-            desplazamiento(point1, point2)
-            break
-
-    movements.append(b'finish')
-    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-        s.connect((SERVER, PORT))
-        for movement in movements:
-            print(movement)
-            s.sendall(movement)
-            data = s.recv(1024)
