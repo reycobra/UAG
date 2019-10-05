@@ -1,5 +1,4 @@
-# UAG repositorio personal
+# UAG personal repository
 
-Este repositorio esta pensado para tener todo el codigo generado durante mi
-estancia en la maestria de ciencias computacionales en la Universidad Autonoma
-de Guadalajara
+This repository is intended to have all the code generated during my computer
+science masters at the Universidad Autonoma de Guadalajara.
