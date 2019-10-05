@@ -1,6 +1,3 @@
-# Linear Regression
+# Regresion lineal
 
-This is a little school project about how to implement linear regression
-to solve a problem.
-
-
+Implementacion basica de una regresion lineal
