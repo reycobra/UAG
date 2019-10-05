@@ -2,7 +2,7 @@
 
 ## Description
 
-This class as the tittle saids is about a class of Artificial Intelligence taken in the UAG, there are two projects here, one related with resolving a maze using the lego and another one related to give voice commands to the lego.
+This class as the tittle shows is about a class of Artificial Intelligence taken in the UAG, there are two projects here, one related with resolving a maze using the lego and another one related to give voice commands to the lego.
 
 ### Brief description of the "Maze project"
 
