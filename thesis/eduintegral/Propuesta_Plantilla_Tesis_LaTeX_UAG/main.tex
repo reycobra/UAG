@@ -1,0 +1,119 @@
+%-----------------------------------------------------------%
+% Propuesta de plantilla en LaTeX para tesis formato UAG    %
+% Autor: Arnulfo Moisés Maciel Hernández                    % 
+% Contacto: moy.maciel@gmail.com                            %
+% Fecha: Septiembre 2017                                    %
+%-----------------------------------------------------------%
+% El objetivo de esta plantilla es facilitar la redacción   %
+% en LaTeX de tu tesis siguiendo los lineamientos de la UAG.%
+% Mi intención es pues que se dedique el tiempo al          %
+% contenido de la tesis evitando las largas horas           %
+% entendiendo LaTeX.                                        %  
+% Siéntete libre de modificar la plantilla de acuerdo a tus %
+% necesidades.                                              %
+%-----------------------------------------------------------%
+% Utiliza el libro libro LaTeX_2014.pdf que se encuentra    %
+% dentro de la carpeta "ayuda" para más información.        %
+%-----------------------------------------------------------%
+
+%-----------------------------------------------------------%
+% Las siguientes configuraciones son con el objetivo de una
+% tesis en español siguiendo los lineamientos estipulados
+% en: http://crecea.uag.mx/opciones/tesis.htm
+% En relación al diseño de la portada los lineamientos 
+% estipulados en: http://crecea.uag.mx/opciones/portada.htm
+
+    \documentclass[12pt,twoside]{report}
+    \usepackage[utf8]{inputenc}
+    % Incluye la bibliografia en el indice general
+    \usepackage[nottoc]{tocbibind}              
+    \usepackage{pdfpages}
+    \usepackage{longtable,multirow,booktabs}
+    \usepackage{setspace}
+    \usepackage{graphicx}
+    \usepackage{cite}
+    \usepackage{tabu}
+    \usepackage[spanish, es-tabla]{babel}
+    \usepackage{amssymb}
+    \usepackage{amsmath}
+    \usepackage{esvect}
+    \usepackage{hyperref}
+    \usepackage[a4paper,width=150mm,top=25mm,bottom=25mm,bindingoffset=6mm]{geometry} %Formato márgenes, etc.
+    \usepackage[font=footnotesize,labelfont=bf]{caption}
+    \usepackage{minted}
+    \usepackage{tikz}
+    \usepackage{verbatim}
+    \graphicspath{{imagenes/}} %Ubicación de imágenes
+    \hypersetup{
+        %Configuración comandos de referencia cruzada en LATEX:
+        colorlinks=true,
+        linkcolor=black,
+        citecolor=blue,
+        filecolor=blue,      
+        urlcolor=blue,
+        %Opciones de visualización e información PDF:
+        pdfauthor={"Salvador Gudiño Ochoa"},
+        pdftitle={"Modelado y Desarrollo de la herramienta eduintegral para la generación de un canal de comunicación padre de familia maestro"},
+        pdfsubject={"Canal de comunicación para maestros y alumnos"},
+        pdfcreator={"Salvador Gudiño Ochoa"},
+        pdfproducer={"Salvador Gudiño Ochoa"},
+        pdfkeywords={""}
+    }
+    
+    \begin{document}
+    
+        \input{portada/titulos}
+    
+        %\includepdf[]{portada/cartaaceptacion.pdf} %archivo PDF y nombre de tu carta de aceptación % Removido por mi p0ps
+        
+         % Usar numeros romanos
+        \pagenumbering{roman}
+        
+        \spacing{1.5}
+        %\chapter*{Abstract}  % Removido por mi p0ps
+        %\input{portada/abstract} % Removido por mi p0ps
+        
+
+        \chapter*{Agradecimientos y dedicatoria}
+        \input{portada/dedicatoria}
+        \addcontentsline{toc}{chapter}{Agradecimientos y dedicatoria}
+        
+        \chapter*{Resumen}
+        \input{portada/resumen}
+        \addcontentsline{toc}{chapter}{Resumen}
+        
+        \chapter*{Summary}
+        \input{portada/summary}
+        \addcontentsline{toc}{chapter}{Summary}
+        
+        \tableofcontents
+        
+        \listoffigures
+        
+        \listoftables 
+         
+        \cleardoublepage
+        % Usar numeros arabicos
+        \pagenumbering{arabic}
+        
+        \chapter{Introducción}
+        \input{capitulos/capitulo01}    % Capitulo 01
+        
+        \chapter{Estado del arte}
+        \input{capitulos/capitulo02}    % Capitulo 02
+        
+        \chapter{Propuesta y diseño}
+        \input{capitulos/capitulo03}    % Capitulo 03
+        
+        \chapter{Implementación y pruebas}
+        \input{capitulos/capitulo04}    % Capitulo 04
+        
+        \chapter{Discusión, conclusiones y trabajo futuro}
+        \input{capitulos/capitulo05}    % Capitulo 05
+        
+        
+        \bibliographystyle{ieeetr} % Formato de la IEEE
+        \bibliography{bibliografia/articulos.bib,bibliografia/libros.bib,bibliografia/misc.bib}
+    
+    \end{document}
+%-----------------------------------------------------------%
