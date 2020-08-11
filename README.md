@@ -12,5 +12,5 @@ The classes covered are:
 - Statistics and Probability
 - Thesis
 
-If you want to learn, propose, reuse or know something related to this repository please do not
-hesitate on open an issue and I will be glad to help.
+If you want to learn, propose, reuse or know something related to this
+repository please do not hesitate on open an issue and I will be glad to help.
