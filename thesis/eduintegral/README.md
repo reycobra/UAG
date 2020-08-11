@@ -1,16 +1,23 @@
-# Tesis UAG
+# Thesis
 
-Este repositorio tiene la intencion de almacenar todo el codigo generado para mi
-tesis, esta tesis es generada con la intencion de que obtenga el grado de
-maestro en la maestria de Ciencias Computacionales en la Universidad Autonoma de
-Guadalajara
+This repository is made with the intention to contain all the code used for my
+thesis, also this thesis is created with the intention to be a means to obtain
+my masters degree title from the Masters of Computer Science on the Universidad
+Autonoma de Guadalajara.
 
-# Objetivo
+## Goal
 
-El objetivo de este proyecto es la generacion de una aplicacion movil que pueda
-ayudar a los maestros a realizar sus actividades cotidianas de una manera mas
-sencilla a traves del uso del telefono inteligente.
+The goal of this project is creating a mobile app capable of help school
+teachers do their most common tasks in a simple manner using just their mobile
+phones.
 
-Entre las actividades cotidianas de los maestros se considera la toma de
-asistencia, el generacion de reportes de conducta y el registro de las tareas
-realizadas por parte de los alumnos.
+The common tasks considered are:
+
+- Assistance list
+- Conduct reports
+- Homework registry
+
+**IMPORTANT NOTICE:** This project was deprecated, I'm not longer pursuing
+getting my masters degree with this project, the reason is because I'm really
+bad at mobile development and could not meet with the delivery standards for
+my thesis adviser.
