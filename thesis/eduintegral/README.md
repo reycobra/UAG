@@ -17,7 +17,7 @@ The common tasks considered are:
 - Conduct reports
 - Homework registry
 
-**IMPORTANT NOTICE:** This project was deprecated, I'm not longer pursuing
+**IMPORTANT NOTICE:** This project is **deprecated**, I'm not longer pursuing
 getting my masters degree with this project, the reason is because I'm really
 bad at mobile development and could not meet with the delivery standards for
 my thesis adviser.
