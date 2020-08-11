@@ -18,7 +18,7 @@ store in this repository.
 The project is going to try to apply all the things learned from the masters
 so is going to have many topics integrated into it.
 
-This topics are from my classes:
+These topics are from my classes:
 
 - Analysis and Algorithm Design
 - Microcomputers Architecture
